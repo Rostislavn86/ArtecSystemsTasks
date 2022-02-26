@@ -9,19 +9,7 @@ public class Main
 
         Methods methods = new Methods();
 
-        methods.OutputAndSortAllInformation(args[0],args[1]);
-
-        //methods.OutputAndSortAllInformation("3");
-
-        //System.out.println(methods.countAllWordsOfTheSameAuthor("Эрнесто Заткнитесь"));
-
-
-
-
-
+        methods.OutputAndSortAllInformation("-top-bad-words" ,"15");
 
     }
-
-
-
 }
