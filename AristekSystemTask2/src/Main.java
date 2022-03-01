@@ -8,7 +8,7 @@ public class Main
 
         methods.MakeArrrayOfFilesInStringArray();
 
-        System.out.println(methods.MakeArrayNamesFromFileNames(methods.MakeArrrayOfFilesInStringArray())[2]);
+        System.out.println(methods.MakeArrayNamesFromFileNames(methods.MakeArrrayOfFilesInStringArray())[16]);
         methods.MakeArrayNamesFromFileNames(methods.MakeArrrayOfFilesInStringArray());
         //System.out.println(methods.MakeArrrayOfFilesInStringArray()[0]);
 
@@ -34,16 +34,16 @@ public class Main
         //methods.CollectAllTextOfTheAuthor("Rickey F");
 
         System.out.println("***********************************");
-        for(int i = 0; i <methods.GetNameArreysOfTheFilesFromAuthorNames("Гнойный").length; i++)
-            System.out.println(methods.GetNameArreysOfTheFilesFromAuthorNames("Гнойный")[i]);
+        for(int i = 0; i <methods.GetNameArreysOfTheFilesFromAuthorNames("Dom1no").length; i++)
+            System.out.println(methods.GetNameArreysOfTheFilesFromAuthorNames("Dom1no")[i]);
 
         // Вывод всего текста в один String файл.
         String allTextData = "";
 
-        for(int i = 0; i <methods.GetNameArreysOfTheFilesFromAuthorNames("Noiza MC").length; i++)
+        for(int i = 0; i <methods.GetNameArreysOfTheFilesFromAuthorNames("Dom1no").length; i++)
         {
             //allTextData += methods.GetNameArreysOfTheFilesFromAuthorNames("Гнойный")[i];
-            allTextData += methods.GetStringArrayFromFilename(methods.GetNameArreysOfTheFilesFromAuthorNames("Noiza MC")[i]);
+            allTextData += methods.GetStringArrayFromFilename(methods.GetNameArreysOfTheFilesFromAuthorNames("Dom1no")[i]);
         }
 
         //System.out.println(allTextData);
@@ -65,6 +65,7 @@ public class Main
         //System.out.println("[" +  methods.CleanFromTrashAndSmallWords(allTextData)[5744] + "]");
 
         methods.DataOutput(methods.CreateArrayIndexing(methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData)),methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData),10);
+
 
     }
 }

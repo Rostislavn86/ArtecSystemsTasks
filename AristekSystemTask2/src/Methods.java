@@ -12,14 +12,6 @@ public class Methods
     {
         //Что бы убрать повторяющиеся слова - которая я не понимаю как но появляться - воспользумесяц HashSet<String> fileNames = new HashSet<>();
 
-        HashSet<String> wordsSet = new HashSet<>();
-        for(int i = 0; i < words.length; i++)
-        {
-            wordsSet.add(words[i]);
-        }
-
-
-
         //Сортировка
         boolean isSorted = false;
 
@@ -45,24 +37,43 @@ public class Methods
             }
         }
 
+        //Нужно удалить все повторяющееся элементы с начала массива
+        // попробовать через Set или новый массив
+
         for (int i = 0; i < words.length; i++)
         {
+            //for (int j = 0; j < words.length - 2; j++)
+            if (words[i].equals(words[i+1])) continue;
 
-            System.out.println(words[i] + " - " + index[i] + " раз " + " количество символов в слове = ");
-
+            System.out.println(words[i] + " - " + index[i] + " раз ");
+            if (index[i] == 0) break;
         }
+
+
     }
+
+    //Убираем повторяющееся слова в массиве слов из текста
+    public String[] DeleteDublicateFromText(String[] wordsFromTextArray)
+    {
+        HashSet<String> wordsNotDublicated = new HashSet<>();
+
+        for(int i = 0; i < wordsFromTextArray.length; i++)
+        {
+            wordsNotDublicated.add(wordsFromTextArray[i]);
+        }
+
+        //https://beginnersbook.com/2014/08/converting-a-hashset-to-an-array/
+        String[] arrayNames = new String[wordsNotDublicated.size()];
+        wordsNotDublicated.toArray(arrayNames);
+
+        return arrayNames;
+    }
+
+
 
     //Создаём проиндесированный массив повторяющехся элементов
     public int[] CreateArrayIndexing(String[] wordsFromTextArray)
     {
-
-        //Что бы убрать повторяющиеся слова - воспользумеся HashSet<String> fileNames = new HashSet<>();
-        HashSet<String> wordsSet = new HashSet<>();
-        for(int i = 0; i < wordsFromTextArray.length; i++)
-        {
-            wordsSet.add(wordsFromTextArray[i]);
-        }
 
         int[] indexArray = new int[wordsFromTextArray.length];
 
@@ -82,18 +93,11 @@ public class Methods
 
             for(int j = 0; j < wordsFromTextArray.length; j++)
             {
-                if (wordsFromTextArray[i].equals(wordsFromTextArray[j]))
+                if (wordsFromTextArray[i].equals(wordsFromTextArray[j]) && (i != j))
                 {
-                    //обнуляю повторяющееся элементы в массиве
-                    if (indexArray[i] > 1)
-                    {
-                        wordsFromTextArray[i] = "";
-                    }
                     indexArray[i] += 1;
                 }
             }
-
-        //    System.out.println("word = " + wordsFromTextArray[i] + " index "+ indexArray[i]);
 
         }
 
