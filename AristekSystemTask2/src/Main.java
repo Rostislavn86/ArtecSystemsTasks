@@ -5,6 +5,11 @@ public class Main
     public static void main(String[] args) throws IOException {
         Methods methods = new Methods();
 
+
+        methods.MakeArrrayOfFilesInStringArray();
+
+        System.out.println(methods.MakeArrayNamesFromFileNames(methods.MakeArrrayOfFilesInStringArray())[2]);
+        methods.MakeArrayNamesFromFileNames(methods.MakeArrrayOfFilesInStringArray());
         //System.out.println(methods.MakeArrrayOfFilesInStringArray()[0]);
 
         /*
@@ -35,13 +40,31 @@ public class Main
         // Вывод всего текста в один String файл.
         String allTextData = "";
 
-        for(int i = 0; i <methods.GetNameArreysOfTheFilesFromAuthorNames("Гнойный").length; i++)
+        for(int i = 0; i <methods.GetNameArreysOfTheFilesFromAuthorNames("Noiza MC").length; i++)
         {
             //allTextData += methods.GetNameArreysOfTheFilesFromAuthorNames("Гнойный")[i];
-            allTextData += methods.GetStringArrayFromFilename(methods.GetNameArreysOfTheFilesFromAuthorNames("Гнойный")[i]);
+            allTextData += methods.GetStringArrayFromFilename(methods.GetNameArreysOfTheFilesFromAuthorNames("Noiza MC")[i]);
         }
 
-        System.out.println(allTextData);
+        //System.out.println(allTextData);
+
+       // methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData);
+
+        for(int i = 0; i < methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData).length; i++)
+        {
+        //    System.out.println(i + "[" +  methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData)[i] + "]");
+         //   System.out.println(methods.CleanFromTrashAndSmallWords(allTextData)[6381].length());
+        }
+
+        //считаем индекс повторения каждого слова в тексте одного из исполнителей
+        methods.CreateArrayIndexing(methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData));
+
+
+        //methods.CreateArrayIndexing(methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData));
+
+        //System.out.println("[" +  methods.CleanFromTrashAndSmallWords(allTextData)[5744] + "]");
+
+        methods.DataOutput(methods.CreateArrayIndexing(methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData)),methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData),10);
 
     }
 }
