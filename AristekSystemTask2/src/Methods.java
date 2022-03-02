@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Locale;
 
 public class Methods
@@ -18,11 +19,15 @@ public class Methods
         int bufInt;
         String bufStr;
 
+        String[] arrayTotalOutPut = new String[words.length];
+
         while(!isSorted)
         {
             isSorted = true;
-            for (int i = 0; i < index.length-1; i++) {
-                if(index[i] < index[i+1]){
+            for (int i = 0; i < index.length-1; i++)
+            {
+                if(index[i] < index[i+1])
+                {
                     isSorted = false;
 
                     bufInt = index[i];
@@ -32,24 +37,49 @@ public class Methods
                     bufStr = words[i];
                     words[i] = words[i+1];
                     words[i+1] = bufStr;
-
                 }
             }
         }
 
-        //Нужно удалить все повторяющееся элементы с начала массива
-        // попробовать через Set или новый массив
-
-        for (int i = 0; i < words.length; i++)
+        for(int i = 0; i < arrayTotalOutPut.length; i++)
         {
-            //for (int j = 0; j < words.length - 2; j++)
-            if (words[i].equals(words[i+1])) continue;
-
-            System.out.println(words[i] + " - " + index[i] + " раз ");
-            if (index[i] == 0) break;
+            arrayTotalOutPut[i] = words[i] + " - " + index[i] + " раз ";
+        //    System.out.println(arrayTotalOutPut[i]);
         }
 
+        String[] outPutArray = new String[arrayTotalOutPut.length];
 
+        //https://www.geeksforgeeks.org/print-distinct-elements-given-integer-array/
+        // Вывод
+
+                for (int i = 0; i < arrayTotalOutPut.length; i++)
+                {
+                int j;
+                for (j = 0; j < i; j++)
+                    //if ((arrayTotalOutPut[i].equals(arrayTotalOutPut[j]) || ((arrayTotalOutPut[i].contains(arrayTotalOutPut[j])))))
+                    if ((((arrayTotalOutPut[i].contains(arrayTotalOutPut[j])))))
+                        break;
+                // If not printed earlier,
+                // then print it
+                if (i == j)
+               {
+                   outPutArray[i] = arrayTotalOutPut[i];
+               //    System.out.println(i + " : " + arrayTotalOutPut[i]);
+               }
+                else
+                {
+                    outPutArray[i] = "empty";
+                }
+               }
+
+                for(int i = 0; i < outPutArray.length; i++)
+                {
+
+                    if (outPutArray[i].equals("empty")) continue;
+                    //if (outPutArray[i].contains("-")) continue;
+
+                    System.out.println(outPutArray[i]);
+                }
     }
 
     //Убираем повторяющееся слова в массиве слов из текста
@@ -79,13 +109,17 @@ public class Methods
 
         for(int i = 0; i < wordsFromTextArray.length; i++)
         {
-            if (wordsFromTextArray[i].equals(""))
+            // +1 так как слово в тексте в любом случае встречается один раз
+            indexArray[i]++;
+
+            // Исключаю из обработки пустые строки
+            if (wordsFromTextArray[i].equals(" "))
             {
                 indexArray[i] = 0 ;
                 continue;
             }
             //Здесь я как бы убираю местоименя
-            if (wordsFromTextArray[i].length() < 5)
+            if (wordsFromTextArray[i].length() <= 5)
             {
                 indexArray[i] = 0 ;
                 continue;
@@ -98,8 +132,9 @@ public class Methods
                     indexArray[i] += 1;
                 }
             }
-
         }
+
+
 
         return indexArray;
 
@@ -112,10 +147,15 @@ public class Methods
         allText = allText.toLowerCase(Locale.ROOT);
         allText = allText.trim();
 
+        allText = allText.replaceAll("\n", "-");
         //убираем все знаки из текста
         allText = allText.replaceAll("[,.!?:;»«()]", " ");
 
-        allText = allText.replaceAll(" ", " ");
+        allText = allText.replaceAll("  ", " ");
+
+        //allText = allText.replaceAll("\n", "-");
+
+        //allText = allText.replaceAll("-", "");
 
         String[] allTextArray = allText.split(" ");
 

@@ -1,5 +1,7 @@
 import java.io.IOException;
 
+// Доделать - убрать все пробелы из текста который включаем на обработку + сделать нормальный вывод по  заданному количеству строк.
+
 public class Main
 {
     public static void main(String[] args) throws IOException {
@@ -46,10 +48,6 @@ public class Main
             allTextData += methods.GetStringArrayFromFilename(methods.GetNameArreysOfTheFilesFromAuthorNames("Dom1no")[i]);
         }
 
-        //System.out.println(allTextData);
-
-       // methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData);
-
         for(int i = 0; i < methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData).length; i++)
         {
         //    System.out.println(i + "[" +  methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData)[i] + "]");
@@ -65,7 +63,6 @@ public class Main
         //System.out.println("[" +  methods.CleanFromTrashAndSmallWords(allTextData)[5744] + "]");
 
         methods.DataOutput(methods.CreateArrayIndexing(methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData)),methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData),10);
-
 
     }
 }
