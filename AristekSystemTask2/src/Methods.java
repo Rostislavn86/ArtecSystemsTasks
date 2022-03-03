@@ -2,12 +2,13 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Locale;
 
 public class Methods
 {
+    // Переделать вывод используя код TestRepWords - то есть тут идекс не нужен !!!
     //Сортируем текст и индекс для правильного вывода
     public void DataOutput(int[] index, String[] words, int numberOfLines)
     {
@@ -49,57 +50,75 @@ public class Methods
 
         String[] outPutArray = new String[arrayTotalOutPut.length];
 
+        outPutArray = words;
+
         //https://www.geeksforgeeks.org/print-distinct-elements-given-integer-array/
         // Вывод
 
-                for (int i = 0; i < arrayTotalOutPut.length; i++)
-                {
-                int j;
-                for (j = 0; j < i; j++)
-                    //if ((arrayTotalOutPut[i].equals(arrayTotalOutPut[j]) || ((arrayTotalOutPut[i].contains(arrayTotalOutPut[j])))))
-                    if ((((arrayTotalOutPut[i].contains(arrayTotalOutPut[j])))))
-                        break;
-                // If not printed earlier,
-                // then print it
-                if (i == j)
-               {
-                   outPutArray[i] = arrayTotalOutPut[i];
-               //    System.out.println(i + " : " + arrayTotalOutPut[i]);
-               }
-                else
-                {
-                    outPutArray[i] = "empty";
-                }
-               }
-
-                for(int i = 0; i < outPutArray.length; i++)
-                {
-
-                    if (outPutArray[i].equals("empty")) continue;
-                    //if (outPutArray[i].contains("-")) continue;
-
-                    System.out.println(outPutArray[i]);
-                }
-    }
-
-    //Убираем повторяющееся слова в массиве слов из текста
-    public String[] DeleteDublicateFromText(String[] wordsFromTextArray)
-    {
-        HashSet<String> wordsNotDublicated = new HashSet<>();
-
-        for(int i = 0; i < wordsFromTextArray.length; i++)
+        for (int i = 0; i < outPutArray.length; i++)
         {
-            wordsNotDublicated.add(wordsFromTextArray[i]);
+            outPutArray[i] = outPutArray[i].trim();
+            //outPutArray[i] = outPutArray[i].replaceAll("\n","");
+        //    System.out.println(i + " : " + "[" + outPutArray[i] + "] " + "L = " + outPutArray[i].trim().length());
         }
 
-        //https://beginnersbook.com/2014/08/converting-a-hashset-to-an-array/
-        String[] arrayNames = new String[wordsNotDublicated.size()];
-        wordsNotDublicated.toArray(arrayNames);
+        for(int i = 0; i < arrayTotalOutPut.length; i++)
+        {
+            arrayTotalOutPut[i] = outPutArray[i] + " - " + index[i] + " раз ";
+            System.out.println(arrayTotalOutPut[i]);
+        }
+    }
 
-        return arrayNames;
+    // Сделать через HashMap
+    public static String[] deleteDublicateHashMap(String[] arrayWords, int[] arrayOfIndex)
+    {
+        //https://www.geeksforgeeks.org/print-distinct-elements-given-integer-array/
+
+        HashMap<String,Integer> hm = new HashMap<String,Integer>();
+
+        for (int i = 0; i < arrayWords.length; i++)
+        {
+            hm.put(arrayWords[i], arrayOfIndex[i]);
+        }
+
+        System.out.println(hm.keySet());
+
+        return null;
     }
 
 
+    //Убираем повторяющиеся позиции и записываем новый массив
+    public static String[] deleteDublicate(String[] arrayWithoutDublicateElemets)
+    {
+            // https://www.geeksforgeeks.org/print-distinct-elements-given-integer-array/
+            // This function prints all distinct elements
+            // Creates an empty hashset
+            HashSet<String> set = new HashSet<>();
+
+            // Traverse the input array
+            for (int i=0; i<arrayWithoutDublicateElemets.length; i++)
+            {
+                // If not present, then put it in hashtable and print it
+                if (!set.contains(arrayWithoutDublicateElemets[i]))
+                {
+                    set.add(arrayWithoutDublicateElemets[i]);
+                //    System.out.print(arrayWithoutDublicateElemets[i] + " ");
+                }
+            }
+
+        //https://www.geeksforgeeks.org/convert-hashset-to-array-in-java/
+        String[] arr = new String[set.size()];
+
+        int i=0;
+
+        // iterating over the hashset
+        for(String ele:set)
+        {
+            arr[i++] = ele;
+        }
+
+        return arr;
+    }
 
     //Создаём проиндесированный массив повторяющехся элементов
     public int[] CreateArrayIndexing(String[] wordsFromTextArray)
@@ -134,8 +153,6 @@ public class Methods
             }
         }
 
-
-
         return indexArray;
 
     }
@@ -147,21 +164,14 @@ public class Methods
         allText = allText.toLowerCase(Locale.ROOT);
         allText = allText.trim();
 
-        allText = allText.replaceAll("\n", "-");
+        allText = allText.replaceAll("\\n", "");
         //убираем все знаки из текста
-        allText = allText.replaceAll("[,.!?:;»«()]", " ");
-
-        allText = allText.replaceAll("  ", " ");
-
-        //allText = allText.replaceAll("\n", "-");
-
-        //allText = allText.replaceAll("-", "");
+        allText = allText.replaceAll("[,.!?:;»«()‘’]", " ");
 
         String[] allTextArray = allText.split(" ");
 
         return allTextArray;
     }
-
 
     //Новый !!!! Метод считывающий информацию из файла с заданныим именем файла
     public String GetStringArrayFromFilename(String fileName) throws IOException
@@ -171,6 +181,8 @@ public class Methods
         Path fileNamePath = Path.of("rap-battles/" + fileName);
 
         String data = Files.readString(fileNamePath);
+
+        //data = data.replaceAll("\s", " ");
 
         return data;
     }
