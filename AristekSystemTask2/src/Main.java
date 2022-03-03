@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-// Доделать - убрать все пробелы из текста который включаем на обработку + сделать нормальный вывод по  заданному количеству строк.
+    // Сделать метод считывающий имена исполнитлей из нвзания -  и добавить имена в исключения при подсчёте слов
 
 public class Main
 {
@@ -27,7 +27,7 @@ public class Main
         //считаем индекс повторения каждого слова в тексте одного из исполнителей
        // methods.CreateArrayIndexing(methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData));
 
-        methods.DataOutput(methods.CreateArrayIndexing(methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData)),methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData),10);
+        methods.DataOutput(methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData),10);
 
     }
 }

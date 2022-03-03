@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 
@@ -10,9 +9,37 @@ public class Methods
 {
     // Переделать вывод используя код TestRepWords - то есть тут идекс не нужен !!!
     //Сортируем текст и индекс для правильного вывода
-    public void DataOutput(int[] index, String[] words, int numberOfLines)
+    public void DataOutput(String[] words, int numberOfLines)
     {
-        //Что бы убрать повторяющиеся слова - которая я не понимаю как но появляться - воспользумесяц HashSet<String> fileNames = new HashSet<>();
+        for (int i = 0; i < words.length; i++)
+        {
+            words[i] = words[i].trim();
+        }
+
+        // Формируем индексацию каждого слова
+        //String[] words=input.split(" ");  //Split the word from String
+        int[] index = new int[words.length];    //Variable for getting Repeated word count
+
+        for(int i=0;i<words.length;i++) //Outer loop for Comparison
+        {
+            index[i] += 1;
+            // Убираем таким образом местоимения
+            if (words[i].length() <= 4)
+            {
+                index[i] = 0;
+                continue;
+            }
+            for(int j=i+1;j<words.length;j++) //Inner loop for Comparison
+            {
+                if(words[i].equals(words[j]))  //Checking for both strings are equal
+                {
+                    index[i]=index[i]+1;    //if equal increment the count
+                    words[j]="0"; //Replace repeated words by zero
+                }
+            }
+            //if(words[i]!="0")
+            //    System.out.println(words[i]+"--"+index[i]); //Printing the word along with count
+        }
 
         //Сортировка
         boolean isSorted = false;
@@ -44,121 +71,15 @@ public class Methods
 
         for(int i = 0; i < arrayTotalOutPut.length; i++)
         {
+            // пропускаем вывод местоимений
+            if (index[i] == 0) continue;
             arrayTotalOutPut[i] = words[i] + " - " + index[i] + " раз ";
-        //    System.out.println(arrayTotalOutPut[i]);
-        }
-
-        String[] outPutArray = new String[arrayTotalOutPut.length];
-
-        outPutArray = words;
-
-        //https://www.geeksforgeeks.org/print-distinct-elements-given-integer-array/
-        // Вывод
-
-        for (int i = 0; i < outPutArray.length; i++)
-        {
-            outPutArray[i] = outPutArray[i].trim();
-            //outPutArray[i] = outPutArray[i].replaceAll("\n","");
-        //    System.out.println(i + " : " + "[" + outPutArray[i] + "] " + "L = " + outPutArray[i].trim().length());
-        }
-
-        for(int i = 0; i < arrayTotalOutPut.length; i++)
-        {
-            arrayTotalOutPut[i] = outPutArray[i] + " - " + index[i] + " раз ";
             System.out.println(arrayTotalOutPut[i]);
         }
-    }
-
-    // Сделать через HashMap
-    public static String[] deleteDublicateHashMap(String[] arrayWords, int[] arrayOfIndex)
-    {
-        //https://www.geeksforgeeks.org/print-distinct-elements-given-integer-array/
-
-        HashMap<String,Integer> hm = new HashMap<String,Integer>();
-
-        for (int i = 0; i < arrayWords.length; i++)
-        {
-            hm.put(arrayWords[i], arrayOfIndex[i]);
-        }
-
-        System.out.println(hm.keySet());
-
-        return null;
-    }
-
-
-    //Убираем повторяющиеся позиции и записываем новый массив
-    public static String[] deleteDublicate(String[] arrayWithoutDublicateElemets)
-    {
-            // https://www.geeksforgeeks.org/print-distinct-elements-given-integer-array/
-            // This function prints all distinct elements
-            // Creates an empty hashset
-            HashSet<String> set = new HashSet<>();
-
-            // Traverse the input array
-            for (int i=0; i<arrayWithoutDublicateElemets.length; i++)
-            {
-                // If not present, then put it in hashtable and print it
-                if (!set.contains(arrayWithoutDublicateElemets[i]))
-                {
-                    set.add(arrayWithoutDublicateElemets[i]);
-                //    System.out.print(arrayWithoutDublicateElemets[i] + " ");
-                }
-            }
-
-        //https://www.geeksforgeeks.org/convert-hashset-to-array-in-java/
-        String[] arr = new String[set.size()];
-
-        int i=0;
-
-        // iterating over the hashset
-        for(String ele:set)
-        {
-            arr[i++] = ele;
-        }
-
-        return arr;
-    }
-
-    //Создаём проиндесированный массив повторяющехся элементов
-    public int[] CreateArrayIndexing(String[] wordsFromTextArray)
-    {
-
-        int[] indexArray = new int[wordsFromTextArray.length];
-
-        for(int i = 0; i < wordsFromTextArray.length; i++)
-        {
-            // +1 так как слово в тексте в любом случае встречается один раз
-            indexArray[i]++;
-
-            // Исключаю из обработки пустые строки
-            if (wordsFromTextArray[i].equals(" "))
-            {
-                indexArray[i] = 0 ;
-                continue;
-            }
-            //Здесь я как бы убираю местоименя
-            if (wordsFromTextArray[i].length() <= 5)
-            {
-                indexArray[i] = 0 ;
-                continue;
-            }
-
-            for(int j = 0; j < wordsFromTextArray.length; j++)
-            {
-                if (wordsFromTextArray[i].equals(wordsFromTextArray[j]) && (i != j))
-                {
-                    indexArray[i] += 1;
-                }
-            }
-        }
-
-        return indexArray;
 
     }
 
-
-    //Очищаем строку от мусора (запятых местоимений) и создаём новый массив
+    //Очищаем строку от мусора и создаём новый массив
     public String[] CleanFromTrashAndSmallWordsAndCreateArrayOfWords(String allText)
     {
         allText = allText.toLowerCase(Locale.ROOT);
