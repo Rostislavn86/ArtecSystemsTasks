@@ -4,10 +4,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.Random;
 
 public class Methods
 {
-    // Переделать вывод используя код TestRepWords - то есть тут идекс не нужен !!!
     //Сортируем текст и индекс для правильного вывода
     public void DataOutput(String[] words, int numberOfLines)
     {
@@ -17,14 +17,13 @@ public class Methods
         }
 
         // Формируем индексацию каждого слова
-        //String[] words=input.split(" ");  //Split the word from String
-        int[] index = new int[words.length];    //Variable for getting Repeated word count
+        int[] index = new int[words.length];
 
         for(int i=0;i<words.length;i++) //Outer loop for Comparison
         {
             index[i] += 1;
             // Убираем таким образом местоимения
-            if (words[i].length() <= 4)
+            if (words[i].length() <= 5)
             {
                 index[i] = 0;
                 continue;
@@ -37,8 +36,6 @@ public class Methods
                     words[j]="0"; //Replace repeated words by zero
                 }
             }
-            //if(words[i]!="0")
-            //    System.out.println(words[i]+"--"+index[i]); //Printing the word along with count
         }
 
         //Сортировка
@@ -69,7 +66,7 @@ public class Methods
             }
         }
 
-        for(int i = 0; i < arrayTotalOutPut.length; i++)
+        for(int i = 0; i < 10; i++)
         {
             // пропускаем вывод местоимений
             if (index[i] == 0) continue;
@@ -102,8 +99,6 @@ public class Methods
         Path fileNamePath = Path.of("rap-battles/" + fileName);
 
         String data = Files.readString(fileNamePath);
-
-        //data = data.replaceAll("\s", " ");
 
         return data;
     }
@@ -164,4 +159,59 @@ public class Methods
 
         return arrayNames;
     }
+
+    public void MainMenu(String[] authorNames,String commandNameNumberOutPut, int NumberOutPut, String CommandAuthorName, String authorNamePut) throws IOException {
+
+        Methods methods = new Methods();
+
+        // Вывод всего текста в один String файл.
+        String allTextData = "";
+
+        if (!commandNameNumberOutPut.equals("-top-words") || (!CommandAuthorName.equals("-name")))
+        {
+            System.out.println("Комманда введена не верно - повторите ввод ");
+            System.exit(0);
+        }
+
+        for(int i = 0; i < authorNames.length; i++)
+        {
+            if (authorNamePut.equals(authorNames[i]))
+            {
+
+                for(int k = 0; k <methods.GetNameArreysOfTheFilesFromAuthorNames(authorNamePut).length; k++)
+                {
+                    allTextData += methods.GetStringArrayFromFilename(methods.GetNameArreysOfTheFilesFromAuthorNames(authorNamePut)[k]);
+                }
+
+                // вывод
+                methods.DataOutput(methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData),NumberOutPut);
+
+                System.exit(0);
+
+            }
+        }
+
+        for(int i = 0; i < authorNames.length; i++)
+        {
+            System.out.println("Рэпер " + authorNamePut + " не известен мне. Зато мне известны :  ");
+            for(int j = 0; j < 3; j++)
+            {
+                Random random = new Random();
+                int rand = random.nextInt(authorNames.length);
+
+                System.out.println(authorNames[rand]);
+            }
+
+            System.exit(0);
+        }
+
+    }
+
+    public void MainMenu(String[] authorNames) throws IOException
+    {
+        System.out.println("Вы не ввели ни одной комманды - прошрамм будет закрыта");
+
+        System.exit(0);
+    }
+
 }
