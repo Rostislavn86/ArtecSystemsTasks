@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main
 {
@@ -35,61 +36,7 @@ public class Main
 
         Methods methods = new Methods();
 
-        // Спсиок всех исполнителей
-        for(int i = 0; i < methods.MakeArrayNamesFromFileNames(methods.MakeArrrayOfFilesInStringArray()).length; i++ )
-            System.out.println(methods.MakeArrayNamesFromFileNames(methods.MakeArrrayOfFilesInStringArray())[i]);
-
         methods.MainMenu(methods.MakeArrayNamesFromFileNames(methods.MakeArrrayOfFilesInStringArray()),"-top-words", 30, "-name", "Династ");
 
-       // MainMenu(methods.MakeArrayNamesFromFileNames(methods.MakeArrrayOfFilesInStringArray()), "-top-words", 30,"-name","Гнойный");
-
     }
-
-    public static void MainMenu(String[] authorNames,String commandNameNumberOutPut, int NumberOutPut, String CommandAuthorName, String authorNamePut) throws IOException {
-
-        Methods methods = new Methods();
-
-        // Вывод всего текста в один String файл.
-        String allTextData = "";
-
-        if (!commandNameNumberOutPut.equals("-top-words") || (!CommandAuthorName.equals("-name")))
-        {
-            System.out.println("Комманда введена не верно - повторите ввод ");
-            System.exit(0);
-        }
-
-        for(int i = 0; i < authorNames.length; i++)
-        {
-            if (authorNamePut.equals(authorNames[i]))
-            {
-
-                for(int k = 0; k <methods.GetNameArreysOfTheFilesFromAuthorNames(authorNamePut).length; k++)
-                {
-                    allTextData += methods.GetStringArrayFromFilename(methods.GetNameArreysOfTheFilesFromAuthorNames(authorNamePut)[k]);
-                }
-
-                // вывод
-                methods.DataOutput(methods.CleanFromTrashAndSmallWordsAndCreateArrayOfWords(allTextData),NumberOutPut);
-
-                System.exit(0);
-
-            }
-        }
-
-        for(int i = 0; i < authorNames.length; i++)
-        {
-            System.out.println("Рэпер " + authorNamePut + " не известен мне. Зато мне известны :  ");
-            for(int j = 0; j < 3; j++)
-            {
-                Random random = new Random();
-                int rand = random.nextInt(authorNames.length);
-
-                System.out.println(authorNames[rand]);
-            }
-
-            System.exit(0);
-        }
-
-    }
-
 }
