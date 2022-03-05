@@ -209,7 +209,7 @@ public class Methods
 
     public void MainMenu(String[] authorNames) throws IOException
     {
-        System.out.println("Вы не ввели ни одной комманды - прошрамм будет закрыта");
+        System.out.println("Вы не ввели ни одной комманды - программа будет закрыта");
 
         System.exit(0);
     }
