@@ -164,6 +164,8 @@ public class Methods
 
         Methods methods = new Methods();
 
+        System.out.println("Исполнитель - " + authorNamePut);
+
         // Вывод всего текста в один String файл.
         String allTextData = "";
 
