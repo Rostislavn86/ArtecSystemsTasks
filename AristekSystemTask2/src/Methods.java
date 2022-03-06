@@ -157,12 +157,22 @@ public class Methods
         String[] arrayNames = new String[names.size()];
         names.toArray(arrayNames);
 
+        /*
+        for(int i = 0; i < arrayNames.length; i++)
+        {
+           arrayNames[i] =  arrayNames[i].trim();
+           arrayNames[i] = arrayNames[i].replaceAll(" ", "_");
+        }
+        */
+
         return arrayNames;
     }
 
-    public void MainMenu(String[] authorNames,String commandNameNumberOutPut, int NumberOutPut, String CommandAuthorName, String authorNamePut) throws IOException {
+    public void MainMenu(String[] authorNames,String commandNameNumberOutPut, String NumberOutPutString, String CommandAuthorName, String authorNamePut) throws IOException {
 
         Methods methods = new Methods();
+
+        int NumberOutPut = Integer.parseInt(NumberOutPutString);
 
         System.out.println("Исполнитель - " + authorNamePut);
 

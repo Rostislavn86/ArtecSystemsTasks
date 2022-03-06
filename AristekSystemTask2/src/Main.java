@@ -16,7 +16,7 @@ public class Main
             System.out.println(methods.MakeArrayNamesFromFileNames(methods.MakeArrrayOfFilesInStringArray())[i]);
         */
 
-        methods.MainMenu(methods.MakeArrayNamesFromFileNames(methods.MakeArrrayOfFilesInStringArray()),"-top-words", 30, "-name", "Oxxxymiron");
+        methods.MainMenu(methods.MakeArrayNamesFromFileNames(methods.MakeArrrayOfFilesInStringArray()),args[0], args[1], args[2], args[3]);
 
     }
 }

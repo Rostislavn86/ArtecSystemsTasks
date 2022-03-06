@@ -1,5 +1,7 @@
+
 import java.io.IOException;
-import java.util.Arrays;
+
+//https://www.youtube.com/watch?v=tA8rEz_xFrQ
 
 public class Main
 {
@@ -8,7 +10,8 @@ public class Main
 
         Methods methods = new Methods();
 
-        methods.OutputAndSortAllInformation("-top-bad-words" ,"5");
+        methods.OutputAndSortAllInformation(args[0] ,args[1]);
 
     }
+
 }
